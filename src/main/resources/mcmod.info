@@ -1,0 +1,18 @@
+[
+{
+  "modid": "oddsandends",
+  "name": "Odds and Ends",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "logoFile": "",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Spitfyre03"],
+  "credits": "",
+  "screenshots": [],
+  "parent": "",
+  "dependencies": [],
+  "dependants": []
+}
+]
