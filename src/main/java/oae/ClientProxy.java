@@ -3,6 +3,7 @@ package oae;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import oae.items.OAEItems;
 
 /**
  * This proxy is the instance assigned to the mod proxy if it is loaded on the client side, i.e.
@@ -16,6 +17,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		OAEItems.registerRenderers();
 	}
 
 	@Override

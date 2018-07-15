@@ -3,6 +3,7 @@ package oae;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import oae.items.OAEItems;
 
 /**
  * This class is main proxy holder and object type of the OAEMain proxy. When the mod starts
@@ -16,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent event) {
-		
+		OAEItems.registerItems();
 	}
 
 	public void init(FMLInitializationEvent event) {
