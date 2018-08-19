@@ -1,8 +1,13 @@
 package oae;
 
+import java.util.concurrent.TimeUnit;
+
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import oae.client.drpc.RPCHandler;
+import oae.client.drpc.RPCWrapper;
 import oae.items.OAEItems;
 
 /**
@@ -14,19 +19,41 @@ import oae.items.OAEItems;
  */
 public class ClientProxy extends CommonProxy {
 
+	private static RPCHandler richPresence;
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		OAEMain.LOGGER.info("Initializing Discord RPC.");
+		richPresence = new RPCHandler();
+		MinecraftForge.EVENT_BUS.register(richPresence);
+		new Thread("RPC-Thread") {
+			@Override
+			public void run() {
+				while (!Thread.currentThread().isInterrupted()) {
+					RPCWrapper.updatePresence(richPresence.presence);
+					RPCWrapper.runCallbacks();
+					try {
+						TimeUnit.SECONDS.sleep(2);
+					}
+					catch (InterruptedException e) {
+						OAEMain.LOGGER.error("Exception while running RPC-Thread", e);
+					}
+				}
+			}
+		}.start();
 		OAEItems.registerRenderers();
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
+		richPresence.presence.state = "Init";
 	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
+		richPresence.presence.state = "Post-init";
 	}
 }

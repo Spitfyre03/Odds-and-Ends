@@ -13,9 +13,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import oae.ref.ModInfo;
 
 /**
- * The face of Odds and Ends. This only serves as the mod object and FML event handler. Most
- * FML related processes with be carried out here. All other actions are deferred to the
- * proxies for execution.
+ * The face of Odds and Ends. This only serves as the mod object and FML event handler. If
+ * an FML event needs listened on, it will be subscribed here, and deferred to the proxies
+ * for most of the handling.
  * 
  * @author Spitfyre03
  */
@@ -25,8 +25,7 @@ public class OAEMain {
 	@Instance
 	public static OAEMain instance;
 
-	// TODO implement sectioning? What does that look like
-	public static final Logger LOGGER = LogManager.getLogger(ModInfo.ID);
+	public static final Logger LOGGER = LogManager.getFormatterLogger(ModInfo.NAME);
 
 	@SidedProxy(serverSide = ModInfo.SERVER_PROXY, clientSide = ModInfo.CLIENT_PROXY)
 	public static CommonProxy proxy;
